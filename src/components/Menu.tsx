@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "./Logo";
+import { role } from "@/lib/data";
 
 const menuItems = [
   {
@@ -112,23 +113,25 @@ const Menu = () => {
     <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%]">
       <Logo />
       <div className="mt-2 text-sm">
-        <div className="p-3 font-bold text-gray-400">Menu</div>
+        <div className="p-3 font-bold text-gray-400 hidden lg:block">Menu</div>
         {menuItems.map((menuItem) => {
-          return (
-            <Link
-              key={menuItem.label}
-              href={menuItem.href}
-              className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 hover:bg-gray-100 hover:scale-x-105 p-4 transition duration-300"
-            >
-              <Image
-                src={menuItem.icon}
-                alt="item image"
-                width={20}
-                height={20}
-              />
-              <span className="hidden lg:block">{menuItem.label}</span>
-            </Link>
-          );
+          if (menuItem.visible.includes(role)) {
+            return (
+              <Link
+                key={menuItem.label}
+                href={menuItem.href}
+                className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 hover:bg-[#e0fa9d] hover:scale-x-105 p-4 transition-all duration-200"
+              >
+                <Image
+                  src={menuItem.icon}
+                  alt="item image"
+                  width={20}
+                  height={20}
+                />
+                <span className="hidden lg:block">{menuItem.label}</span>
+              </Link>
+            );
+          }
         })}
       </div>
     </div>
